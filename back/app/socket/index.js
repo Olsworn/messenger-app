@@ -11,7 +11,7 @@ function initSocket(httpInstance) {
     io.on('connection', (socket) => {
         console.log('Hello new user');
 
-        const userName = socket.handshake.query.userName;
+        const userName = socket.handshake.query.username;
         let ownRoomId;
 
         if (socket.handshake.query.roomId) {
@@ -24,7 +24,7 @@ function initSocket(httpInstance) {
         }
 
         socket.on('send_message', (payload) => {
-            socket.to(ownRoomId).emit('receive_message', payload.message);
+            socket.to(ownRoomId).emit('receive_message', payload);
         });
 
         socket.on('disconnecting', () => {
